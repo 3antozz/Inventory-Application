@@ -3,19 +3,21 @@ require("dotenv").config();
 
 const SQL = `
 
+CREATE EXTENSION citext;
+
 CREATE TABLE IF NOT EXISTS developers (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR ( 255 ) UNIQUE,
+  name CITEXT NOT NULL UNIQUE CHECK (char_length(name) > 0 AND char_length(name) <= 255),
   founded_date INTEGER);
 
 CREATE TABLE IF NOT EXISTS genres (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR ( 255 ) UNIQUE,
+  name CITEXT NOT NULL UNIQUE CHECK (char_length(name) > 0 AND char_length(name) <= 255),
   cover_url TEXT);
 
 CREATE TABLE IF NOT EXISTS games (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR ( 255 ) UNIQUE,
+  name CITEXT NOT NULL UNIQUE CHECK (char_length(name) > 0 AND char_length(name) <= 255),
   description TEXT,
   release_date DATE,
   cover_url TEXT);

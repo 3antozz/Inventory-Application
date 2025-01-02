@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include("partials/errors.ejs") %>
+    <form action="/create_genre" method="post">
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="genre_name">
+        </div>
+        <div>
+            <label for="url">Cover URL: </label>
+            <input type="text" id="url" name="genre_url">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
