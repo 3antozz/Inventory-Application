@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
-app.get("*", (req, res) => {
+app.use((req, res) => {
     throw new Error('404 NOT FOUND!')
   });
 app.use((err, req, res, next) => {
