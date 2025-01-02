@@ -6,8 +6,8 @@
     <title><%= title %></title>
 </head>
 <body>
-    <% games.map((game) => { %>
-        <a href="/games/<%= game.id %>"><%= game.name %></a>
+    <% game.map((game) => { %>
+        <h1><%= game.name %> <br> <%= game.description %> <br> <%= game.release_date %> <br> <%= game.developers %> <br> <%= game.genres %></h1>
     <% }) %>
 </body>
 </html>

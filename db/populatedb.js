@@ -6,7 +6,7 @@ const SQL = `
 CREATE TABLE IF NOT EXISTS developers (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name VARCHAR ( 255 ) UNIQUE,
-  founded_date DATE);
+  founded_date INTEGER);
 
 CREATE TABLE IF NOT EXISTS genres (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -33,8 +33,9 @@ CREATE TABLE IF NOT EXISTS game_dev (
 
 INSERT INTO developers (name, founded_date) 
 VALUES
-  ('Rockstar Games', '1998-02-15'),
-  ('Microsoft Studios', '1980-08-22');
+  ('Rockstar Games', '1998'),
+  ('SkyBox Labs', '2011'),
+  ('Microsoft Studios', '1980');
 
 INSERT INTO genres (name, cover_url) 
 VALUES
@@ -53,7 +54,11 @@ VALUES
     ((SELECT id FROM games WHERE name='GTA IV'),
     (SELECT id FROM developers WHERE name='Rockstar Games')),
     ((SELECT id FROM games WHERE name='Age of Mythology'),
-    (SELECT id FROM developers WHERE name='Microsoft Studios'));
+    (SELECT id FROM developers WHERE name='Microsoft Studios')),
+    ((SELECT id FROM games WHERE name='Age of Mythology'),
+    (SELECT id FROM developers WHERE name='SkyBox Labs')),
+    ((SELECT id FROM games WHERE name='GTA V'),
+    (SELECT id FROM developers WHERE name='Rockstar Games'));
 
 INSERT INTO game_genre (game_id, genre_id)
 VALUES
@@ -86,7 +91,7 @@ main();
 
 const query = `
 
-  SELECT games.name, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
+  SELECT games.name, games.description, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name, games.release_date;
 
       SELECT games.name, games.release_date, developers.name AS developer, genres.name AS genre
