@@ -4,8 +4,8 @@ const asyncHandler = require('express-async-handler');
 
 
 exports.getGenreGames = asyncHandler (async (req, res) => {
-    const genre = req.params.genre;
-    const result = await db.getGenreGames(genre);
+    const id = req.params.id;
+    const result = await db.getGenreGames(id);
     res.render('genre', {title: 'Games', games: result});
 })
 
