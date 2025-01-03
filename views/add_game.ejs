@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/styles/choices.min.css" />
+    <script src="/public/scripts/choices.min.js"></script>
+</head>
+<body>
+    <%- include("partials/errors.ejs") %>
+    <form action="/games/add" method="post">
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="game_name">
+        </div>
+        <div>
+            <label for="description">Description: </label>
+            <textarea id="description" name="game_description"></textarea>
+        </div>
+        <div>
+            <label for="date">Release Date: </label>
+            <input type="date" name="game_date" id="date">
+        </div>
+        <div>
+            <label for="quantity">Quantity: </label>
+            <input type="number" name="game_quantity" id="quantity">
+        </div>
+        <div>
+            <label for="url">Cover URL: </label>
+            <input type="text" id="url" name="game_url">
+        </div>
+        <label for="genres">Select genres:</label>
+        <select name="genres[]" id="genres" multiple>
+            <% locals.genres.map((genre) => { %>
+                <div>
+                    <option value="<%= genre.id %>"><%= genre.name %></option>
+                </div>
+            <% }) %>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const genreSelect = new Choices('#genres', {
+            removeItemButton: true,
+            placeholder: true,
+            placeholderValue: 'Select genres',
+            searchEnabled: true
+        });
+    });
+    </script>
+</body>
+</html>

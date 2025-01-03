@@ -17,11 +17,11 @@ exports.addGenre = async (req, res) => {
     try {
         await db.insertGenre(genre_name, genre_url);
     } catch (error) {
-        res.locals.errorMessage = error.message || "An unexpected error occurred";
+        res.locals.message = error.message || "An unexpected error occurred";
     } 
     finally {
-        if(!res.locals.errorMessage) {
-            res.locals.errorMessage = 'Success';
+        if(!res.locals.message) {
+            res.locals.message = 'Success';
         }
         res.render('create_genre', {title: 'Add a new genre'});
     }
@@ -32,11 +32,11 @@ exports.emptyGenre = async (req, res) => {
     try {
         await db.emptyGenre(id);
     } catch (error) {
-        res.locals.errorMessage = error.message || "An unexpected error occurred";
+        res.locals.message = error.message || "An unexpected error occurred";
     } 
     finally {
-        const errorMessage = res.locals.errorMessage || 'Success';
-        res.redirect(`/genre/edit/${id}?errorMessage=${encodeURIComponent(errorMessage)}`);
+        const message = res.locals.message || 'Success';
+        res.redirect(`/genre/edit/${id}?message=${encodeURIComponent(message)}`);
     }
 }
 
@@ -46,10 +46,10 @@ exports.editGenre = async (req, res) => {
     try {
         genre = await db.getGenre(id);
     } catch (error) {
-        res.locals.errorMessage = error.message || "An unexpected error occurred";
+        res.locals.message = error.message || "An unexpected error occurred";
     } 
     finally {
-        res.locals.errorMessage = res.locals.errorMessage || req.query.errorMessage;
+        res.locals.message = res.locals.message || req.query.message;
         res.render('edit_genre', {title: 'Edit Genre', genre: genre[0]});
     }
 }
@@ -60,10 +60,10 @@ exports.updateGenre = async (req, res) => {
     try {
         await db.updateGenre(id, genre_name, genre_url)
     } catch (error) {
-        res.locals.errorMessage = error.message || "An unexpected error occurred";
+        res.locals.message = error.message || "An unexpected error occurred";
     } finally {
-        const errorMessage = res.locals.errorMessage || 'Success';
-        res.redirect(`/genre/edit/${id}?errorMessage=${encodeURIComponent(errorMessage)}`);
+        const message = res.locals.message || 'Success';
+        res.redirect(`/genre/edit/${id}?message=${encodeURIComponent(message)}`);
     }
 }
 

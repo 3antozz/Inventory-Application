@@ -7,7 +7,7 @@
 </head>
 <body>
     <% genres.map((genre) => { %>
-        <a href="/genre/<%= genre.id %>"><%= genre.name %></a><br>
+        <a href="/genre/<%= genre.id %>"><%= genre.name %></a>
         <a href="/genre/edit/<%= genre.id %>">Edit</a> <br>
     <% }) %> <br>
     <a href="/genre/create">Create Genre</a>
