@@ -12,7 +12,7 @@ exports.genreForm = asyncHandler ((req, res) => res.render('create_genre', {titl
 
 
 
-exports.addGenre = asyncHandler(async (req, res) => {
+exports.addGenre = async (req, res) => {
     const { genre_name, genre_url} = req.body;
     try {
         await db.insertGenre(genre_name, genre_url);
@@ -25,9 +25,9 @@ exports.addGenre = asyncHandler(async (req, res) => {
         }
         res.render('create_genre', {title: 'Add a new genre'});
     }
-})
+}
 
-exports.emptyGenre = asyncHandler(async (req, res) => {
+exports.emptyGenre = async (req, res) => {
     const id = req.params.id;
     try {
         await db.emptyGenre(id);
@@ -38,9 +38,9 @@ exports.emptyGenre = asyncHandler(async (req, res) => {
         const errorMessage = res.locals.errorMessage || 'Success';
         res.redirect(`/genre/edit/${id}?errorMessage=${encodeURIComponent(errorMessage)}`);
     }
-})
+}
 
-exports.editGenre = asyncHandler(async (req, res) => {
+exports.editGenre = async (req, res) => {
     const id = req.params.id;
     let genre;
     try {
@@ -52,9 +52,9 @@ exports.editGenre = asyncHandler(async (req, res) => {
         res.locals.errorMessage = res.locals.errorMessage || req.query.errorMessage;
         res.render('edit_genre', {title: 'Edit Genre', genre: genre[0]});
     }
-})
+}
 
-exports.updateGenre = asyncHandler(async (req, res) => {
+exports.updateGenre = async (req, res) => {
     const id = req.params.id;
     const { genre_name, genre_url } = req.body;
     try {
@@ -65,7 +65,7 @@ exports.updateGenre = asyncHandler(async (req, res) => {
         const errorMessage = res.locals.errorMessage || 'Success';
         res.redirect(`/genre/edit/${id}?errorMessage=${encodeURIComponent(errorMessage)}`);
     }
-})
+}
 
 
 
