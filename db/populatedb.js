@@ -3,6 +3,8 @@ require("dotenv").config();
 
 const SQL = `
 
+DROP TABLE developers, games, genres, game_genre, game_developers;
+
 CREATE EXTENSION citext;
 
 CREATE TABLE IF NOT EXISTS developers (

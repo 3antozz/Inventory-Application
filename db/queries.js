@@ -32,7 +32,7 @@ exports.updateGenre = async (id, name, url) => {
     await pool.query("UPDATE genres SET name=$2, cover_url=$3 WHERE id=$1;", [id, name, url])
 }
 
-exports.insertGame = async (name, description, date, quantity, url, genresID) => {
+exports.insertGame = async (name, description, date, quantity, url, genresID, developersID) => {
     await pool.query("INSERT INTO games (name, description, release_date, quantity, cover_url) VALUES ($1, $2, $3, $4, $5);", [name, description, date, quantity, url]);
     genresID.forEach(async (id) => {
         await pool.query(
@@ -40,4 +40,28 @@ exports.insertGame = async (name, description, date, quantity, url, genresID) =>
             [name, id]
         );
     });
+    developersID.forEach(async (id) => {
+        await pool.query(
+            "INSERT INTO game_dev (game_id, developer_id) VALUES ((SELECT id FROM games WHERE name=$1), $2);",
+            [name, id]
+        );
+    });
+}
+
+exports.getAllGames = async () => {
+    const { rows } = await pool.query("SELECT * FROM games;")
+    return rows;
+}
+
+exports.deleteGame = async (id) => {
+    await Promise.all([
+        pool.query("DELETE FROM games WHERE id=$1;", [id]),
+        pool.query("DELETE FROM game_genre WHERE game_id=$1;", [id]),
+        pool.query("DELETE FROM game_dev WHERE game_id=$1;", [id]),
+    ]);
+}
+
+exports.getAllDevelopers = async () => {
+    const { rows }  = await pool.query('SELECT * FROM developers;');
+    return rows;
 }

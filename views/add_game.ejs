@@ -38,17 +38,27 @@
                 </div>
             <% }) %>
         </select>
+        <label for="devs">Select developers:</label>
+        <select name="developers[]" id="devs" multiple>
+            <% locals.devs.map((dev) => { %>
+                <div>
+                    <option value="<%= dev.id %>"><%= dev.name %></option>
+                </div>
+            <% }) %>
+        </select>
         <button type="submit">Submit</button>
     </form>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const genreSelect = new Choices('#genres', {
-            removeItemButton: true,
-            placeholder: true,
-            placeholderValue: 'Select genres',
-            searchEnabled: true
-        });
-    });
+            document.addEventListener('DOMContentLoaded', function () {
+                const genreSelect = new Choices('#genres', {
+                    removeItemButton: true,
+                    placeholderValue: 'Select genres',
+                });
+                const devSelect = new Choices('#devs', {
+                    removeItemButton: true,
+                    placeholderValue: 'Select developers',
+                });
+            });
     </script>
 </body>
 </html>

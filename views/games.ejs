@@ -8,6 +8,9 @@
 <body>
     <% games.map((game) => { %>
         <a href="/games/<%= game.id %>"><%= game.name %></a>
+        <form action="/games/delete/<%= game.id %>" method="post">
+            <button>Delete game</button>
+        </form>
     <% }) %>
     <a href="/games/add">Add game</a>
 </body>
