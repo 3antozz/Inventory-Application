@@ -5,6 +5,11 @@ exports.getGenreGames = async (id) => {
     return rows;
 }
 
+exports.getDevGames = async (id) => {
+    const { rows }  = await pool.query("SELECT games.id, games.name FROM games JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id WHERE developers.id=$1;", [id]);
+    return rows;
+}
+
 exports.getGame = async (id) => {
     const { rows }  = await pool.query("SELECT games.id AS id, games.name, games.description, TO_CHAR(games.release_date, 'YYYY-MM-DD') AS release_date, JSON_AGG(DISTINCT genres.name) AS genres, games.quantity, JSON_AGG(DISTINCT developers.name) AS developers FROM games LEFT JOIN game_genre ON games.id=game_genre.game_id LEFT JOIN genres ON genre_id=genres.id LEFT JOIN game_dev ON games.id=game_dev.game_id LEFT JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name, games.release_date HAVING  games.id=$1;", [id]);
     return rows;

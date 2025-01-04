@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <% devs.map((dev) => { %>
+        <a href="/devs/<%= dev.id %>"><%= dev.name %></a>
+        <a href="/devs/edit/<%= dev.id %>">Edit</a> <br>
+    <% }) %> <br>
+    <a href="/devs/add">Add a developer</a>
+</body>
+</html>

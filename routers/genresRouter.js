@@ -6,7 +6,7 @@ const gamesController = require('../controllers/gamesController');
 genresRouter.get('/create', genresController.genreForm);
 genresRouter.post('/create', genresController.addGenre);
 
-genresRouter.post('/:id', genresController.emptyGenre);
+genresRouter.post('/clear/:id', genresController.emptyGenre);
 genresRouter.get('/:id', gamesController.getGenreGames);
 
 genresRouter.get('/edit/:id', genresController.editGenre);

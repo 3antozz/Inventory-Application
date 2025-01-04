@@ -7,19 +7,19 @@
 </head>
 <body>
     <%- include("partials/errors.ejs") %>
-    <form action="/genre/update/<%= genre.id %>" method="post">
+    <form action="/devs/edit/<%= dev.id %>" method="post">
         <div>
             <label for="name">Name: </label>
-            <input type="text" id="name" name="genre_name" value="<%= genre.name %>">
+            <input type="text" id="name" name="dev_name" value="<%= dev.name %>">
         </div>
         <div>
-            <label for="url">Cover URL: </label>
-            <input type="text" id="url" name="genre_url" value="<%= genre.cover_url %>">
+            <label for="date">Founding Year: </label>
+            <input type="number" min="1900" max="2099" step="1" value="<%= dev.founded_date %>" name="dev_year">
         </div>
         <button type="submit">Submit</button>
     </form>
-    <form action="/genre/clear/<%= genre.id %>" method="post">
-        <button>Clear genre</button>
+    <form action="/devs/clear/<%= dev.id %>" method="post">
+        <button>Clear Developer</button>
     </form>
 </body>
 </html>
