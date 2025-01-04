@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/styles/choices.min.css" />
+    <script src="/public/scripts/choices.min.js"></script>
+</head>
+<body>
+    <%- include("partials/errors.ejs") %>
+    <form action="/games/edit/<%= game.id %>" method="post">
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="game_name" value="<%= game.name %>">
+        </div>
+        <div>
+            <label for="description">Description: </label>
+            <textarea id="description" name="game_description" value="<%= game.description %>"></textarea>
+        </div>
+        <div>
+            <label for="date">Release Date: </label>
+            <input type="date" name="game_date" id="date" value="<%= game.release_date %>">
+        </div>
+        <div>
+            <label for="quantity">Quantity: </label>
+            <input type="number" name="game_quantity" id="quantity" value="<%= game.quantity %>">
+        </div>
+        <div>
+            <label for="url">Cover URL: </label>
+            <input type="text" id="url" name="game_url" value="<%= game.cover_url %>">
+        </div>
+        <label for="genres">Select genres:</label>
+        <select name="genres[]" id="genres" multiple>
+            <% locals.genres.map((genre) => { %>
+                <div>
+                    <option value="<%= genre.id %>"<% if(locals.game.genres.includes(genre.name)) { %> selected  <%} %> ><%= genre.name %></option>
+                </div>
+            <% }) %>
+        </select>
+        <label for="devs">Select developers:</label>
+        <select name="developers[]" id="devs" multiple>
+            <% locals.devs.map((dev) => { %>
+                <div>
+                    <option value="<%= dev.id %>" <% if(locals.game.developers.includes(dev.name)) { %> selected  <%} %> ><%= dev.name %></option>
+                </div>
+            <% }) %>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const genreSelect = new Choices('#genres', {
+                    removeItemButton: true,
+                    placeholderValue: 'Select genres',
+                });
+                const devSelect = new Choices('#devs', {
+                    removeItemButton: true,
+                    placeholderValue: 'Select developers',
+                });
+            });
+    </script>
+</body>
+</html>

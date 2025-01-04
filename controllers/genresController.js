@@ -1,10 +1,10 @@
-const db = require('../db/queries');
+const genreDB = require('../db/genreQueries');
 const asyncHandler = require('express-async-handler');
 
 
 
 exports.getGenres = asyncHandler (async (req, res) => {
-    const result = await db.getAllGenres();
+    const result = await genreDB.getAllGenres();
     res.render('index', {title: 'Genres', genres: result});
 })
 
@@ -15,7 +15,7 @@ exports.genreForm = asyncHandler ((req, res) => res.render('create_genre', {titl
 exports.addGenre = async (req, res) => {
     const { genre_name, genre_url} = req.body;
     try {
-        await db.insertGenre(genre_name, genre_url);
+        await genreDB.insertGenre(genre_name, genre_url);
     } catch (error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } 
@@ -30,7 +30,7 @@ exports.addGenre = async (req, res) => {
 exports.emptyGenre = async (req, res) => {
     const id = req.params.id;
     try {
-        await db.emptyGenre(id);
+        await genreDB.emptyGenre(id);
     } catch (error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } 
@@ -44,7 +44,7 @@ exports.editGenre = async (req, res) => {
     const id = req.params.id;
     let genre;
     try {
-        genre = await db.getGenre(id);
+        genre = await genreDB.getGenre(id);
     } catch (error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } 
@@ -58,7 +58,7 @@ exports.updateGenre = async (req, res) => {
     const id = req.params.id;
     const { genre_name, genre_url } = req.body;
     try {
-        await db.updateGenre(id, genre_name, genre_url)
+        await genreDB.updateGenre(id, genre_name, genre_url)
     } catch (error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } finally {

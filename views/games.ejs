@@ -10,6 +10,7 @@
         <a href="/games/<%= game.id %>"><%= game.name %></a>
         <form action="/games/delete/<%= game.id %>" method="post">
             <button>Delete game</button>
+            <a href="/games/edit/<%= game.id %>">Edit</a> <br>
         </form>
     <% }) %>
     <a href="/games/add">Add game</a>
