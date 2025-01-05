@@ -1,0 +1,99 @@
+main {
+    flex: 1;
+    padding: 1rem 12vw;
+    font-size: max(1rem, 1.2vw);
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+main > a svg {
+    width: max(1rem, 3vw);
+}
+
+main > a {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 300ms ease;
+}
+
+main > a:hover {
+    background-color: rgb(243, 150, 150);
+    transform: scale(1.1);
+}
+
+.table > div {
+    padding: 0.5rem 1rem;
+    display: grid;
+    grid-template-columns: 2.5fr 0.8fr 0.8fr 1.5fr 0.5fr 0.5fr 0.5fr;
+    gap: 20px;
+    align-items: center;
+    border: 2px solid black;
+    border-bottom: none;
+}
+
+
+
+.table > div:last-of-type {
+    border-bottom: 2px solid black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.column-name {
+    font-weight: bold;
+}
+
+.table > div:first-of-type {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+img {
+    width: 80px;
+    height: 120px;
+    min-width: 80px;
+    min-height: 120px;
+    object-fit: cover;
+}
+
+.name-column > a {
+    width: 80px;
+    height: 120px;
+}
+
+.name-column {
+    font-weight: bold;
+    font-size: max(1rem, 1.4vw);
+}
+
+.table svg {
+    width: max(1rem, 3vw);
+    border-radius: 10px;
+    padding: 5px;
+    transition: transform 300ms ease;
+}
+
+.table button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.table svg:hover, .table button:hover {
+    background-color: rgb(243, 150, 150);
+    transform: scale(1.2);
+}
+
+
+.table > div > div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}

@@ -15,7 +15,7 @@
     <%- include('./partials/Navbar.ejs') %>
     <br>
     <% game.map((game) => { %>
-        <img src="<%= game.cover_url %>" alt=""> <h1><%= game.name %> <br> <%= game.description %> <br> <%= game.release_date %> <br> <%= game.quantity %> <br> <%= game.price %> <br> <%= game.developers.join(', ') %> <br> <%= game.genres.join(', ') %></h1>
+        <img src="<%= game.cover_url %>" alt="Cover image of <%= game.name %>"> <h1><%= game.name %> <br> <%= game.description %> <br> <%= game.release_date %> <br> <%= game.quantity %> <br> <%= game.price %> <br> <%= game.developers.join(', ') %> <br> <%= game.genres.join(', ') %></h1>
     <% }) %>
 </body>
 </html>
