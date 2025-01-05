@@ -13,7 +13,7 @@ exports.genreForm = asyncHandler ((req, res) => res.render('create_genre', {titl
 
 const validateGenre = [
     body('genre_name').trim().notEmpty().withMessage('Please enter a genre name'),
-    body('genre_url').trim().optional({values: 'falsy'}).isURL().withMessage('Please enter a valid URL')
+    body('genre_url').trim().optional({values: 'falsy'}).isURL().withMessage('URL must be a valid URL')
 ];
 
 

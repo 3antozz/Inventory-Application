@@ -1,6 +1,7 @@
 const gamesDB = require('../db/gameQueries');
 const devsDB = require('../db/developerQueries');
 const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
 
 
 
@@ -13,8 +14,17 @@ exports.devForm = asyncHandler(async (req, res) => {
     res.render('add_dev', {title: 'Add a developer'});
 });
 
-exports.addDev = async (req, res) => {
+const validateDev = [
+    body('dev_name').trim().notEmpty().withMessage('Please enter a developer name'),
+    body('dev_year').trim().notEmpty().isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('Year must be a valid number between 1900 and the current year')
+];
+
+exports.addDev =[validateDev, async (req, res) => {
     const { dev_name, dev_year} = req.body;
+    const validation = validationResult(req);
+    if (!validation.isEmpty()) {
+        return res.render('add_dev', {title: 'Add a developer', errors: validation.array()});
+    }
     try {
         await devsDB.insertDev(dev_name, dev_year);
     } catch (error) {
@@ -26,11 +36,15 @@ exports.addDev = async (req, res) => {
         }
         res.render('add_dev', {title: 'Add a developer'});
     }
-}
+}]
 
 exports.editDev = async (req, res) => {
     const id = req.params.id;
     let dev;
+        if(req.query.validation) {
+            dev = await devsDB.getDev(id);
+            return res.render('edit_dev', {title: 'Edit developer', dev: dev[0], validation: JSON.parse(req.query.validation)});
+        }
     try {
         dev = await devsDB.getDev(id);
     } catch(error) {
@@ -41,9 +55,15 @@ exports.editDev = async (req, res) => {
     }
 }
 
-exports.updateDev = async (req, res) => {
+exports.updateDev = [validateDev, async (req, res) => {
     const id = req.params.id;
     const { dev_name, dev_year} = req.body;
+    const validation = validationResult(req);
+    if (!validation.isEmpty()) {
+        const messages = validation.array().map((err) => err.msg)
+        const encodedErrors = encodeURIComponent(JSON.stringify(messages));
+        return res.redirect(`/devs/edit/${id}?validation=${encodedErrors}`);
+    }
     try {
         await devsDB.updateDev(id, dev_name, dev_year);
     } catch(error) {
@@ -52,7 +72,7 @@ exports.updateDev = async (req, res) => {
         const message = res.locals.message || 'Success';
         res.redirect(`/devs/edit/${id}?message=${encodeURIComponent(message)}`);
     }
-}
+}]
 
 exports.clearDev = async (req, res) => {
     const id = req.params.id;
