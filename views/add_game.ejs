@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/public/styles/choices.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
     <script src="/public/scripts/choices.min.js"></script>
+    
 </head>
 <body>
     <%- include('./partials/Navbar.ejs') %>
@@ -23,6 +29,10 @@
         <div>
             <label for="date">Release Date: </label>
             <input type="date" name="game_date" id="date">
+        </div>
+        <div>
+            <label for="price">Price: </label>
+            <input type="number" name="game_price" id="price">
         </div>
         <div>
             <label for="quantity">Quantity: </label>
@@ -55,10 +65,12 @@
                 const genreSelect = new Choices('#genres', {
                     removeItemButton: true,
                     placeholderValue: 'Select genres',
+                    closeDropdownOnSelect: true
                 });
                 const devSelect = new Choices('#devs', {
                     removeItemButton: true,
                     placeholderValue: 'Select developers',
+                    closeDropdownOnSelect: true
                 });
             });
     </script>
