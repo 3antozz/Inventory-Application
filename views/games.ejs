@@ -6,6 +6,8 @@
     <title><%= title %></title>
 </head>
 <body>
+    <%- include('./partials/Navbar.ejs') %>
+    <br>
     <% games.map((game) => { %>
         <a href="/games/<%= game.id %>"><%= game.name %></a>
         <form action="/games/delete/<%= game.id %>" method="post">

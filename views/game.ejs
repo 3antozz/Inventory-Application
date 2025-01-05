@@ -6,8 +6,10 @@
     <title><%= title %></title>
 </head>
 <body>
+    <%- include('./partials/Navbar.ejs') %>
+    <br>
     <% game.map((game) => { %>
-        <h1><%= game.name %> <br> <%= game.description %> <br> <%= game.release_date %> <br> <%= game.quantity %> <br> <%= game.developers.join(', ') %> <br> <%= game.genres.join(', ') %></h1>
+        <h1><%= game.name %> <br> <%= game.description %> <br> <%= game.release_date %> <br> <%= game.quantity %> <br> <br> <%= game.price %> <br> <%= game.developers.join(', ') %> <br> <%= game.genres.join(', ') %></h1>
     <% }) %>
 </body>
 </html>

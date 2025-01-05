@@ -6,6 +6,8 @@
     <title><%= title %></title>
 </head>
 <body>
+    <%- include('./partials/Navbar.ejs') %>
+    <br>
     <%- include("partials/errors.ejs") %>
     <form action="/devs/edit/<%= dev.id %>" method="post">
         <div>

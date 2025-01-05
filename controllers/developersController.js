@@ -33,7 +33,6 @@ exports.editDev = async (req, res) => {
     let dev;
     try {
         dev = await devsDB.getDev(id);
-        console.log(dev);
     } catch(error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } finally {

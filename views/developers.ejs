@@ -6,6 +6,8 @@
     <title><%= title %></title>
 </head>
 <body>
+    <%- include('./partials/Navbar.ejs') %>
+    <br>
     <% devs.map((dev) => { %>
         <a href="/devs/<%= dev.id %>"><%= dev.name %></a>
         <a href="/devs/edit/<%= dev.id %>">Edit</a> <br>

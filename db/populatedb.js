@@ -3,9 +3,9 @@ require("dotenv").config();
 
 const SQL = `
 
-DROP TABLE developers, games, genres, game_genre, game_developers;
+DROP TABLE developers, games, genres, game_genre, game_dev;
 
-CREATE EXTENSION citext;
+CREATE IF NOT EXISTS EXTENSION citext;
 
 CREATE TABLE IF NOT EXISTS developers (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS games (
   name CITEXT NOT NULL UNIQUE CHECK (char_length(name) > 0 AND char_length(name) <= 255),
   description TEXT,
   release_date DATE,
+  price INTEGER,
   quantity INTEGER,
   cover_url TEXT);
 
@@ -48,11 +49,11 @@ VALUES
   ('Real Time Strategy', 'https://static1.dualshockersimages.com/wordpress/wp-content/uploads/2023/03/10-best-rts-games-of-all-time-1.jpg'),
   ('First Person Shooter', 'https://i.ytimg.com/vi/uywWQTuVqw4/maxresdefault.jpg');
 
-INSERT INTO games (name, description, release_date, quantity, cover_url) 
+INSERT INTO games (name, description, release_date, price, quantity, cover_url) 
 VALUES
-  ('GTA V', 'Grand Theft Auto', '2013-09-17', 22, 'https://oyster.ignimgs.com/wordpress/stg.ign.com/2013/04/BG2SpcKCEAEeLeb.jpg'),
-  ('GTA IV', 'Grand Theft Auto', '2008-04-29', 35, 'https://upload.wikimedia.org/wikipedia/en/b/b7/Grand_Theft_Auto_IV_cover.jpg'),
-  ('Age of Mythology', 'Prostagma!', '2002-10-31', 18, 'https://upload.wikimedia.org/wikipedia/en/c/cc/Age_of_Mythology_Retold_cover_art.jpg');
+  ('GTA V', 'Grand Theft Auto', '2013-09-17', 69, 22, 'https://oyster.ignimgs.com/wordpress/stg.ign.com/2013/04/BG2SpcKCEAEeLeb.jpg'),
+  ('GTA IV', 'Grand Theft Auto', '2008-04-29', 69, 35, 'https://upload.wikimedia.org/wikipedia/en/b/b7/Grand_Theft_Auto_IV_cover.jpg'),
+  ('Age of Mythology', 'Prostagma!', '2002-10-31', 69, 18, 'https://upload.wikimedia.org/wikipedia/en/c/cc/Age_of_Mythology_Retold_cover_art.jpg');
 
 INSERT INTO game_dev (game_id, developer_id)
 VALUES
@@ -94,18 +95,18 @@ main();
 
 
 
-const query = `
+// const query = `
 
-  SELECT games.name, games.description, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
-    FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name, games.release_date;
+//   SELECT games.name, games.description, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
+//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name, games.release_date;
 
-      SELECT games.name, games.release_date, developers.name AS developer, genres.name AS genre
-    FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id;
+//       SELECT games.name, games.release_date, developers.name AS developer, genres.name AS genre
+//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id;
 
-    SELECT games.name, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
-    FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name ORDER BY games.name;
+//     SELECT games.name, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
+//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name ORDER BY games.name;
 
-    SELECT games.name
-    FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id WHERE genres.name='Action';
+//     SELECT games.name
+//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id WHERE genres.name='Action';
 
-`
+// `

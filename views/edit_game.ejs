@@ -8,6 +8,8 @@
     <script src="/public/scripts/choices.min.js"></script>
 </head>
 <body>
+    <%- include('./partials/Navbar.ejs') %>
+    <br>
     <%- include("partials/errors.ejs") %>
     <form action="/games/edit/<%= game.id %>" method="post">
         <div>
@@ -21,6 +23,10 @@
         <div>
             <label for="date">Release Date: </label>
             <input type="date" name="game_date" id="date" value="<%= game.release_date %>">
+        </div>
+        <div>
+            <label for="price">Price: </label>
+            <input type="number" name="game_price" id="price" value="<%= game.price %>">
         </div>
         <div>
             <label for="quantity">Quantity: </label>

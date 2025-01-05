@@ -30,13 +30,14 @@ exports.gameForm = asyncHandler (async (req, res) => {
 
 
 exports.addGame = async (req, res) => {
-    let { game_name, game_description, game_date, game_quantity, game_url, genres, developers} = req.body;
+    let { game_name, game_description, game_date, game_price, game_quantity, game_url, genres, developers} = req.body;
     genres = Array.isArray(genres) ? genres : [];
     game_quantity = game_quantity === '' ? 0 : game_quantity;
+    game_price = game_price === '' ? 0 : game_price;
     game_date = game_date ? game_date : null;
     developers = Array.isArray(developers) ? developers : [];
         try {
-            await gamesDB.insertGame(game_name, game_description, game_date, game_quantity, game_url, genres, developers);
+            await gamesDB.insertGame(game_name, game_description, game_date, game_price, game_quantity, game_url, genres, developers);
         } catch (error) {
             res.locals.message = error.message || "An unexpected error occurred";
         } 
@@ -76,13 +77,14 @@ exports.editGame = async (req, res) => {
 
 exports.updateGame = async (req, res) => {
         const id = req.params.id;
-        let {game_name, game_description, game_date, game_quantity, game_url, genres, developers } = req.body;
+        let {game_name, game_description, game_date, game_price, game_quantity, game_url, genres, developers } = req.body;
         genres = Array.isArray(genres) ? genres : [];
         game_quantity = game_quantity === '' ? 0 : game_quantity;
+        game_price = game_price === '' ? 0 : game_price;
         game_date = game_date ? game_date : null;
         developers = Array.isArray(developers) ? developers : [];
         try {
-            await gamesDB.updateGame(id, game_name, game_description, game_date, game_quantity, game_url, genres, developers);
+            await gamesDB.updateGame(id, game_name, game_description, game_date, game_price, game_quantity, game_url, genres, developers);
         } catch (error) {
             res.locals.message = error.message || "An unexpected error occurred";
         } finally {

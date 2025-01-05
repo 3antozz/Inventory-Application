@@ -1,7 +1,7 @@
 <% if (locals.errors) {%>
     <ul>
-      <% errorMessage.forEach(function(error) { %>
-        <li><%= error %></li>
+      <% errors.forEach(function(error) { %>
+        <li><%= error.msg %></li>
       <% }); %>
     </ul>
 <% } %>
@@ -9,4 +9,11 @@
     <ul>
         <li><%= message %></li>
     </ul>
+<% } %>
+<% if (locals.validation) {%>
+  <ul>
+    <% validation.forEach(function(error) { %>
+      <li><%= error %></li>
+    <% }); %>
+  </ul>
 <% } %>
