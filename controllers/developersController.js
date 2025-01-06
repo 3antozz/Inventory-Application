@@ -11,22 +11,26 @@ exports.getAllDevs = asyncHandler(async (req, res) => {
 })
 
 exports.devForm = asyncHandler(async (req, res) => {
+    if(req.query.message) {
+        res.locals.message = req.query.message;
+    }
     res.render('add_dev', {title: 'Add a developer'});
 });
 
 const validateDev = [
     body('dev_name').trim().notEmpty().withMessage('Please enter a developer name'),
+    body('dev_logo').trim().optional({values: 'falsy'}).isURL().withMessage('URL must be a valid URL'),
     body('dev_year').trim().notEmpty().isInt({ min: 1900, max: new Date().getFullYear() }).withMessage('Year must be a valid number between 1900 and the current year')
 ];
 
 exports.addDev =[validateDev, async (req, res) => {
-    const { dev_name, dev_year} = req.body;
+    const { dev_name, dev_logo, dev_year} = req.body;
     const validation = validationResult(req);
     if (!validation.isEmpty()) {
         return res.render('add_dev', {title: 'Add a developer', errors: validation.array()});
     }
     try {
-        await devsDB.insertDev(dev_name, dev_year);
+        await devsDB.insertDev(dev_name, dev_logo, dev_year);
     } catch (error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } 
@@ -57,7 +61,7 @@ exports.editDev = async (req, res) => {
 
 exports.updateDev = [validateDev, async (req, res) => {
     const id = req.params.id;
-    const { dev_name, dev_year} = req.body;
+    const { dev_name, dev_logo, dev_year} = req.body;
     const validation = validationResult(req);
     if (!validation.isEmpty()) {
         const messages = validation.array().map((err) => err.msg)
@@ -65,7 +69,7 @@ exports.updateDev = [validateDev, async (req, res) => {
         return res.redirect(`/devs/edit/${id}?validation=${encodedErrors}`);
     }
     try {
-        await devsDB.updateDev(id, dev_name, dev_year);
+        await devsDB.updateDev(id, dev_name, dev_logo, dev_year);
     } catch(error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } finally {
@@ -74,16 +78,16 @@ exports.updateDev = [validateDev, async (req, res) => {
     }
 }]
 
-exports.clearDev = async (req, res) => {
+exports.removeDev = async (req, res) => {
     const id = req.params.id;
     try {
-        await devsDB.emptyDev(id);
+        await devsDB.removeDev(id);
     } catch (error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } 
     finally {
         const message = res.locals.message || 'Success';
-        res.redirect(`/devs/edit/${id}?message=${encodeURIComponent(message)}`);
+        res.redirect(`/devs/add?message=${encodeURIComponent(message)}`);
     }
 }
 

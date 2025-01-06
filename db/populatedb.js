@@ -5,12 +5,13 @@ const SQL = `
 
 DROP TABLE developers, games, genres, game_genre, game_dev;
 
-CREATE IF NOT EXISTS EXTENSION citext;
+CREATE EXTENSION IF NOT EXISTS citext;
 
 CREATE TABLE IF NOT EXISTS developers (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name CITEXT NOT NULL UNIQUE CHECK (char_length(name) > 0 AND char_length(name) <= 255),
-  founded_date INTEGER);
+  founded_date INTEGER,
+  logo_url TEXT);
 
 CREATE TABLE IF NOT EXISTS genres (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

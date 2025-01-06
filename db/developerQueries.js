@@ -7,8 +7,8 @@ exports.getAllDevelopers = async () => {
     return rows;
 }
 
-exports.insertDev = async (name, date) => {
-    await pool.query("INSERT INTO developers (name, founded_date) VALUES ($1, $2);", [name, date]);
+exports.insertDev = async (name, logo, date) => {
+    await pool.query("INSERT INTO developers (name, founded_date, logo_url) VALUES ($1, $2, $3);", [name, date, logo]);
 }
 
 exports.getDev = async (id) => {
@@ -16,10 +16,10 @@ exports.getDev = async (id) => {
     return rows;
 }
 
-exports.updateDev = async (id, name, year) => {
-    await pool.query("UPDATE developers SET name=$1, founded_date=$2 WHERE id=$3;", [name, year, id]);
+exports.updateDev = async (id, name, logo, year) => {
+    await pool.query("UPDATE developers SET name=$1, founded_date=$2, logo_url=$4 WHERE id=$3;", [name, year, id, logo]);
 }
 
-exports.emptyDev = async (id) => {
-    await pool.query("DELETE FROM game_dev WHERE developer_id=$1;", [id]);
+exports.removeDev = async (id) => {
+    await pool.query("DELETE FROM developers WHERE id=$1;", [id]);
 }

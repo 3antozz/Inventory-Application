@@ -14,7 +14,7 @@ devRouter.get('/:id', developersController.getDevGames);
 devRouter.get('/edit/:id', developersController.editDev);
 devRouter.post('/edit/:id', developersController.updateDev);
 
-devRouter.post('/clear/:id', developersController.clearDev)
+devRouter.post('/clear/:id', developersController.removeDev)
 
 
 

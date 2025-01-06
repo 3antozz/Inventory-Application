@@ -19,6 +19,7 @@ body {
     -webkit-font-smoothing: antialiased;
     display: flex;
     flex-direction: column;
+    height: 100dvh;
 }
 
 img,
@@ -62,4 +63,8 @@ h6 {
 #root,
 #__next {
     isolation: isolate;
+}
+
+main {
+    flex: 1;
 }

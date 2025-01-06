@@ -15,8 +15,8 @@ exports.insertGenre = async (name, url) => {
     await pool.query("INSERT INTO genres (name, cover_url) VALUES ($1, $2);", [name, url]);
 }
 
-exports.emptyGenre = async (id) => {
-    await pool.query("DELETE FROM game_genre WHERE genre_id=$1;", [id]);
+exports.removeGenre = async (id) => {
+    await pool.query("DELETE FROM genres WHERE id=$1;", [id]);
 }
 
 exports.updateGenre = async (id, name, url) => {

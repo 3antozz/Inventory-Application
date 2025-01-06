@@ -1,19 +1,19 @@
 <% if (locals.errors) {%>
     <ul>
       <% errors.forEach(function(error) { %>
-        <li><%= error.msg %></li>
+        <li class="errors">Error: <%= error.msg %></li>
       <% }); %>
     </ul>
 <% } %>
 <% if (locals.message) {%>
     <ul>
-        <li><%= message %></li>
+        <li <% if(locals.message === 'Success') { %> class='error-message success'  <%} %>class="error-message"><%= message %></li>
     </ul>
 <% } %>
 <% if (locals.validation) {%>
   <ul>
     <% validation.forEach(function(error) { %>
-      <li><%= error %></li>
+      <li class="errors"><%= error %></li>
     <% }); %>
   </ul>
 <% } %>

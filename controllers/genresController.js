@@ -9,7 +9,12 @@ exports.getGenres = asyncHandler (async (req, res) => {
     res.render('index', {title: 'Genres', genres: result});
 })
 
-exports.genreForm = asyncHandler ((req, res) => res.render('create_genre', {title: 'Add a new genre'}));
+exports.genreForm = asyncHandler ((req, res) => { 
+    if(req.query.message) {
+        res.locals.message = req.query.message;
+    }
+    res.render('create_genre', {title: 'Add a new genre'}
+    )});
 
 const validateGenre = [
     body('genre_name').trim().notEmpty().withMessage('Please enter a genre name'),
@@ -37,16 +42,16 @@ exports.addGenre = [validateGenre, async (req, res) => {
     }
 }]
 
-exports.emptyGenre = async (req, res) => {
+exports.removeGenre = async (req, res) => {
     const id = req.params.id;
     try {
-        await genreDB.emptyGenre(id);
+        await genreDB.removeGenre(id);
     } catch (error) {
         res.locals.message = error.message || "An unexpected error occurred";
     } 
     finally {
         const message = res.locals.message || 'Success';
-        res.redirect(`/genre/edit/${id}?message=${encodeURIComponent(message)}`);
+        res.redirect(`/genre/create?message=${encodeURIComponent(message)}`);
     }
 }
 

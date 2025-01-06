@@ -1,0 +1,83 @@
+main {
+    padding: 2rem 0;
+}
+
+ul {
+    width: fit-content;
+    margin: auto;
+}
+
+form > div {
+    margin-bottom: 1rem;
+}
+
+form {
+    margin: auto;
+    width: 400px;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+}
+
+form input, form textarea {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px 10px;
+    resize: none;
+}
+
+textarea {
+    height: 100px;
+}
+
+form button {
+    margin: auto;
+    display: block;
+    width: 50%;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px 10px;
+    background-color: rgb(117, 117, 250);
+    color: white;
+    font-weight: bold;
+    transition: transform 300ms ease;
+    cursor: pointer;
+}
+
+form button:hover {
+    transform: scale(1.2);
+}
+
+input:focus {
+    outline-color: red;
+    outline-width: 3px;
+    outline-style: solid;
+}
+
+.error-message {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: red;
+}
+
+.errors {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgb(169, 1, 1);
+    margin-bottom: 1rem;
+}
+
+.success {
+    color: green !important;
+    font-size: 2rem !important;
+}
+
+h1 {
+    font-family: 'Farro';
+    text-align: center;
+    margin-bottom: 2rem;
+}
