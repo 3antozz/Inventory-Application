@@ -14,11 +14,11 @@ app.use('/public', express.static('node_modules/choices.js/public/assets'));
 app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
 app.use((req, res) => {
-    throw new Error('404 NOT FOUND!')
+    throw new Error('404 NOT FOUND')
   });
 app.use((err, req, res, next) => {
     console.error(err);
-    res.status(500).send(err.message);
+    res.status(500).render('error', {error: err.message});
 });
 
 

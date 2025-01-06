@@ -1,16 +1,16 @@
 main {
     font-family: 'Farro';
-    padding: 1rem 0;
+    padding: 1rem 5vw;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
 .devs {
-    justify-content: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    row-gap: 3rem;
+    column-gap: 0.8rem;
 }
 
 h1 {
@@ -53,6 +53,7 @@ h1 {
 }
 
 .dev {
+    box-shadow: 1px 1px 5px 1px #808080a3;
     gap: 1rem;
     display: flex;
     align-items: center;
@@ -60,6 +61,7 @@ h1 {
 }
 
 .dev-name {
+    flex: 1;
     text-decoration: none;
     color: black;
     font-size: 2rem;
@@ -89,4 +91,17 @@ h1 {
 
 .devs > div > a > .no-image {
     border: 2px solid black;
+}
+
+
+@media (max-width: 768px) {
+    .devs {
+        grid-template-columns: 1fr;
+        row-gap: 1.5rem;
+    }
+
+    .dev-name {
+        font-size: 1.3rem;
+    }
+
 }

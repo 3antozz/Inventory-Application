@@ -3,8 +3,6 @@ require("dotenv").config();
 
 const SQL = `
 
-DROP TABLE developers, games, genres, game_genre, game_dev;
-
 CREATE EXTENSION IF NOT EXISTS citext;
 
 CREATE TABLE IF NOT EXISTS developers (
@@ -93,21 +91,3 @@ async function main() {
 }
 
 main();
-
-
-
-// const query = `
-
-//   SELECT games.name, games.description, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
-//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name, games.release_date;
-
-//       SELECT games.name, games.release_date, developers.name AS developer, genres.name AS genre
-//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id;
-
-//     SELECT games.name, games.release_date, STRING_AGG(DISTINCT genres.name, ', ') AS genres, STRING_AGG(DISTINCT developers.name, ', ') AS developers
-//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id JOIN game_dev ON games.id=game_dev.game_id JOIN developers ON developer_id=developers.id GROUP BY games.id, games.name ORDER BY games.name;
-
-//     SELECT games.name
-//     FROM games JOIN game_genre ON games.id=game_genre.game_id JOIN genres ON genre_id=genres.id WHERE genres.name='Action';
-
-// `

@@ -1,0 +1,17 @@
+main {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+}
+
+main > a {
+    font-size: max(1.1rem, 2.2vw);
+}
+
+h1 {
+    font-size: max(1.3rem, 2.5vw);
+}
+
+h2 {
+    font-size: max(1.2rem, 2vw);
+}

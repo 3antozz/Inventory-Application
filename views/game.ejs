@@ -10,12 +10,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Farro:wght@300;400;500;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/reset.css">
     <link rel="stylesheet" href="/styles/navbar.css">
+    <link rel="stylesheet" href="/styles/game_details.css">
 </head>
 <body>
     <%- include('./partials/Navbar.ejs') %>
-    <br>
-    <% game.map((game) => { %>
-        <img src="<%= game.cover_url %>" alt="Cover image of <%= game.name %>"> <h1><%= game.name %> <br> <%= game.description %> <br> <%= game.release_date %> <br> <%= game.quantity %> <br> <%= game.price %> <br> <%= game.developers.join(', ') %> <br> <%= game.genres.join(', ') %></h1>
-    <% }) %>
+    <main>
+        <div>
+            <% game.map((game) => { %>
+                <section>
+                    <a href="/games/edit/<%= game.id %>" class="edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Edit</title><path d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" /></svg>
+                        <p>Edit</p>
+                    </a>
+                    <% if(!game.cover_url || game.cover_url === '') { %>
+                        <img src="/images/no-image.jpg" alt="Cover image of <%= game.name %>">
+                    <% } else { %>
+                        <a href="<%= game.cover_url %>">
+                            <img src="<%= game.cover_url %>" alt="Cover image of <%= game.name %>">
+                        </a>
+                    <% } %> 
+                </section>
+                <section class="info">
+                    <h1><%= game.name %></h1>
+                    <div>
+                        <h2>Description:</h2>
+                        <p><%= game.description %></p>
+                    </div>
+                    <div>
+                        <h2>Release Date:</h2>
+                        <p><%= game.release_date %></p>
+                    </div>
+                    <div>
+                        <h2>Quantity in stock:</h2>
+                        <p><%= game.quantity %></p>
+                    </div>
+                    <div>
+                        <h2>Price:</h2>
+                        <p><%= game.price %> $</p>
+                    </div>
+                    <div>
+                        <h2>Developers: </h2>
+                        <p><%= game.developers.join(', ') %></p>
+                    </div>
+                    <div>
+                        <h2>Genres: </h2>
+                        <p> <%= game.genres.join(', ') %></p>
+                    </div>
+                </section>
+            <% }) %>
+        </div>
+    </main>
+    <%- include('./partials/Footer.ejs') %>
 </body>
 </html>

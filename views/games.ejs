@@ -32,9 +32,11 @@
                 <div>
                     <div class="name-column">
                         <% if(!game.cover_url || game.cover_url === '') { %>
-                            <img src="/images/no-image.jpg" alt="Cover image of <%= game.name %>">
+                            <a href="/games/<%= game.id %>">
+                                <img src="/images/no-image.jpg" alt="Cover image of <%= game.name %>">
+                            </a>
                         <% } else { %>
-                            <a href="<%= game.cover_url %>">
+                            <a href="/games/<%= game.id %>">
                                 <img src="<%= game.cover_url %>" alt="Cover image of <%= game.name %>">
                             </a>
                         <% } %> 
@@ -58,5 +60,6 @@
             <% }) %>
         </div>
     </main>
+    <%- include('./partials/Footer.ejs') %>
 </body>
 </html>
