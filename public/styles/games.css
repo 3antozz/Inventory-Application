@@ -118,6 +118,7 @@ img {
     }
 
     img {
+        flex-shrink: 0;
         width: 50px;
         height: 80px;
         min-width: auto;

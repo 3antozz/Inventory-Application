@@ -3,10 +3,12 @@ main > div {
     justify-content: center;
     align-items: center;
     gap: 4vw;
+    padding: 2rem 11vw;
 }
 main {
     align-content: center;
 }
+
 img {
     object-fit: contain;
     width: 320px;
@@ -56,4 +58,27 @@ section:first-of-type > a:first-of-type {
 section:first-of-type > a:first-of-type:hover {
     background-color: rgb(243, 150, 150);
     transform: scale(1.1);
+}
+
+
+section:first-of-type {
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+
+@media (max-width: 768px) {
+    main > div {
+        flex-direction: column;
+        padding: 2rem 2rem;
+    }
+
+    section:first-of-type {
+        align-self: auto;
+    }
+    img {
+        object-fit: contain;
+        width: 100%;
+        height: auto;
+    }
 }
