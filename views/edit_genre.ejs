@@ -18,7 +18,7 @@
         <%- include("partials/errors.ejs") %>
         <form action="/genre/update/<%= genre.id %>" method="post">
             <div>
-                <label for="name">Name: </label>
+                <label for="name">* Name: </label>
                 <input type="text" id="name" name="genre_name" value="<%= genre.name %>" required>
             </div>
             <div>

@@ -20,7 +20,7 @@
         <%- include("partials/errors.ejs") %>
         <form action="/games/edit/<%= game.id %>" method="post">
             <div>
-                <label for="name">Name: </label>
+                <label for="name">* Name: </label>
                 <input type="text" id="name" name="game_name" value="<%= game.name %>">
             </div>
             <div>
@@ -28,15 +28,15 @@
                 <textarea id="description" name="game_description" value="<%= game.description %>"></textarea>
             </div>
             <div>
-                <label for="date">Release Date: </label>
+                <label for="date">* Release Date: </label>
                 <input type="date" name="game_date" id="date" value="<%= game.release_date %>">
             </div>
             <div>
-                <label for="price">Price: </label>
+                <label for="price">* Price: </label>
                 <input type="number" name="game_price" id="price" value="<%= game.price %>">
             </div>
             <div>
-                <label for="quantity">Quantity: </label>
+                <label for="quantity">* Quantity: </label>
                 <input type="number" name="game_quantity" id="quantity" value="<%= game.quantity %>">
             </div>
             <div>
@@ -44,7 +44,7 @@
                 <input type="text" id="url" name="game_url" value="<%= game.cover_url %>">
             </div>
             <div>
-                <label for="genres">Select genres:</label>
+                <label for="genres">* Select genres:</label>
                 <select name="genres[]" id="genres" multiple>
                     <% locals.genres.map((genre) => { %>
                         <div>
@@ -54,7 +54,7 @@
                 </select>
             </div>
             <div>
-                <label for="devs">Select developers:</label>
+                <label for="devs">* Select developers:</label>
                 <select name="developers[]" id="devs" multiple>
                     <% locals.devs.map((dev) => { %>
                         <div>
