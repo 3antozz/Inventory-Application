@@ -16,17 +16,17 @@ exports.getGame = async (id) => {
 }
 
 exports.insertGame = async (name, description, date, price, quantity, url, genresID, developersID) => {
-    await pool.query("INSERT INTO games (name, description, release_date, price, quantity, cover_url) VALUES ($1, $2, $3, $4, $5, $6);", [name, description, date, price, quantity, url]);
+    const { rows } = await pool.query("INSERT INTO games (name, description, release_date, price, quantity, cover_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;", [name, description, date, price, quantity, url]);
     genresID.forEach(async (id) => {
         await pool.query(
-            "INSERT INTO game_genre (game_id, genre_id) VALUES ((SELECT id FROM games WHERE name=$1), $2);",
-            [name, id]
+            "INSERT INTO game_genre (game_id, genre_id) VALUES ($1, $2);",
+            [rows[0].id, id]
         );
     });
     developersID.forEach(async (id) => {
         await pool.query(
-            "INSERT INTO game_dev (game_id, developer_id) VALUES ((SELECT id FROM games WHERE name=$1), $2);",
-            [name, id]
+            "INSERT INTO game_dev (game_id, developer_id) VALUES ($1, $2);",
+            [rows[0].id, id]
         );
     });
 }
